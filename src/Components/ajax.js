@@ -1,16 +1,30 @@
 import axios from "axios";
-// const apiHost = "https://bakesaleforgood.com/";
+const apiHost = "https://bakesaleforgood.com/";
 
 export default {
-  async fetchInitialDeals() {
+  async fetchDealDetail(dealId) {
     const config = {
       method: "get",
-      url: "https://bakesaleforgood.com/api/deals",
+      url: "https://bakesaleforgood.com/api/deals/" + dealId,
     };
 
-    let res = await axios(config);
+    const res = await axios(config);
 
     console.log(res.status);
+
+    return res.data;
+  },
+
+  // async fetchDealDetail(dealId) {
+  //   let res = await axios.get(
+  //     "https://bakesaleforgood.com/api/deals"`${dealId}`
+  //   );
+
+  //   return res.data;
+  // },
+
+  async fetchInitialDeals() {
+    let res = await axios.get("https://bakesaleforgood.com/api/deals");
 
     return res.data;
   },
