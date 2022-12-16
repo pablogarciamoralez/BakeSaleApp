@@ -62,17 +62,22 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     backgroundColor: "#ccc",
-  },
-  info: {
-    padding: 10,
-    backgroundColor: "#fff",
     borderColor: "#bbb",
     borderWidth: 1,
-    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  info: {
+    // padding: 10,
+    // backgroundColor: "#fff",
+    // borderColor: "#bbb",
+    // borderWidth: 1,
+    // borderTopWidth: 0,
+    alignItems: "center",
   },
   detail: {
     borderColor: "#bbb",
     borderWidth: 1,
+    borderTopWidth: 0,
   },
   title: {
     fontSize: 16,
