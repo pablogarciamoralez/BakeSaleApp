@@ -1,18 +1,41 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Animated,
+  Easing,
+  Dimensions,
+} from "react-native";
 import ajax from "../BakeSaleApp/src/Components/ajax";
 import DealDetail from "./src/Components/DealDetail";
 import DealList from "./src/Components/DealList";
 import SearchBar from "./src/Components/SearchBar";
 
 export default class App extends React.Component {
+  titleXpos = new Animated.Value(0);
   state = {
     deals: [],
     dealsFormSearch: [],
     currentDealId: null,
   };
 
+  animateTitle = (direction = 1) => {
+    const cellWidth = Dimensions.get("window").width;
+    Animated.timing(this.titleXpos, {
+      toValue: direction * (cellWidth / 10),
+      duration: 1000,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start(({ finished }) => {
+      if (finished) {
+        this.animateTitle(-1 * direction);
+      }
+    });
+  };
+
   async componentDidMount() {
+    this.animateTitle();
     const deals = await ajax.fetchInitialDeals();
     this.setState({ deals });
   }
@@ -68,9 +91,9 @@ export default class App extends React.Component {
       );
     }
     return (
-      <View style={styles.container}>
+      <Animated.View style={[{ left: this.titleXpos }, styles.container]}>
         <Text style={styles.header}>Bakesale</Text>
-      </View>
+      </Animated.View>
     );
   }
 }
